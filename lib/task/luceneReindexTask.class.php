@@ -13,7 +13,7 @@ class luceneReindexTask extends sfBaseTask
       new sfCommandOption('reset', null, sfCommandOption::PARAMETER_OPTIONAL, 'Completely recreate the search folder (usually faster)', true),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
     ));
 
@@ -35,10 +35,11 @@ EOF;
   {
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
-    $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
-
     sfContext::createInstance($this->configuration);
 
+    $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
+
+    
 
     if ($options['reset'] == true)
     {
