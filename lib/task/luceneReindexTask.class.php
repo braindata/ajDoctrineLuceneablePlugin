@@ -37,7 +37,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     //$connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
-    sfContext::createInstance($this->configuration, null, 'triContext');
+    sfContext::createInstance($this->configuration);
 
 
     if ($options['reset'] == true)
