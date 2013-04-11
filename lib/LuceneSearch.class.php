@@ -216,6 +216,8 @@ class LuceneSearch {
               }
           }
           $this->_queryString = join(" ",$parts);
+          
+          //var_dump($this->_queryString );
         }
     }
 

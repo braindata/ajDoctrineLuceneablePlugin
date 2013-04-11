@@ -18,6 +18,12 @@ class LuceneHandler {
           return self::$_index;
       }
       self::autoload();
+      
+      Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8());
+      Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('utf-8');
+      Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive());
+      
+      
       if (file_exists($index = self::getLuceneIndexFile()))
       {
         self::$_index = Zend_Search_Lucene::open($index);
