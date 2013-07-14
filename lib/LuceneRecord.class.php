@@ -77,7 +77,7 @@ class LuceneRecord {
       if (!$factor)
         $factor = sfConfig::get('sf_lucene_merge_factor', 10);
       
-      $index->setMergeFactor($factor);
+      $index->setMergeFactor(10);
       
       // store job primary key to identify it in the search results
 

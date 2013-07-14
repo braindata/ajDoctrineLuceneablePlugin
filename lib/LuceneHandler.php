@@ -22,7 +22,7 @@ class LuceneHandler {
       
       Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8());
       Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('utf-8');
-      Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive());
+      Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive());
       
       
       if (file_exists($index = self::getLuceneIndexFile()))
@@ -50,7 +50,7 @@ class LuceneHandler {
         }
 
         // set the Lucene analyzer to allow fuzzy plural searching
-        Zend_Search_Lucene_Analysis_Analyzer::setDefault(new StandardAnalyzer_Analyzer_Standard_English());
+        Zend_Search_Lucene_Analysis_Analyzer::setDefault(new StandardAnalyzer_Analyzer_Standard_German());
     }
     
       static protected $zendLoaded = false;
