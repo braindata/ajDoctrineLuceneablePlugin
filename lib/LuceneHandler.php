@@ -17,11 +17,17 @@ class LuceneHandler {
       {
           return self::$_index;
       }
+
       self::autoload();
       
       Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8());
       Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('utf-8');
+<<<<<<< HEAD
       Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive());
+=======
+      Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive());
+      
+>>>>>>> d2cdcbcca3946554b8e9d27908a4ffbc91e24670
       
       if (file_exists($index = self::getLuceneIndexFile()))
       {
@@ -41,12 +47,14 @@ class LuceneHandler {
         {
             self::registerZend();
         } else {
-			if (sfContext::hasInstance()) {
-				$dispatcher = sfContext::getInstance()->getEventDispatcher();
-				$dispatcher->notify(new sfEvent(new stdClass(),'luceneable.autoload', array()));
-			}
+          if (sfContext::hasInstance()) {
+            $dispatcher = sfContext::getInstance()->getEventDispatcher();
+            $dispatcher->notify(new sfEvent(new stdClass(),'luceneable.autoload', array()));
+          }
         }
 
+        // set the Lucene analyzer to allow fuzzy plural searching
+        Zend_Search_Lucene_Analysis_Analyzer::setDefault(new StandardAnalyzer_Analyzer_Standard_German());
     }
     
       static protected $zendLoaded = false;

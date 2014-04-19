@@ -8,7 +8,7 @@ class luceneOptimizeTask extends sfBaseTask
     $this->addOptions(array(
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
-      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'default'),
+      new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
     ));
 
@@ -28,8 +28,11 @@ EOF;
   {
     sfContext::createInstance($this->configuration);
     $timer = new sfTimer('timer');
-     $this->log('Optimizing ' . LuceneHandler::getLuceneIndexFile() );
+     
+    $this->log('Optimizing ' . LuceneHandler::getLuceneIndexFile() );
     $index = LuceneHandler::getLuceneIndex();
+    $this->log('MergeFactor: '. $index->getMergeFactor());
+    
     $index->optimize();
     $this->log('Optimizing took '. round($timer->getElapsedTime(),2) . ' seconds');
   }

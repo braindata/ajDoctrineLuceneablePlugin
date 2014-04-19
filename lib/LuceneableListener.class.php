@@ -16,5 +16,4 @@ class LuceneableListener extends Doctrine_Record_Listener
 	{
 		LuceneRecord::deleteLuceneRecord($event->getInvoker());
 	}
-
 }

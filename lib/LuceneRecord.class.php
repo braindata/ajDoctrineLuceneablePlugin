@@ -65,7 +65,7 @@ class LuceneRecord {
      * @param <string> $sTable Doctrine Model name
      * @param <boolean> $bDelete Don't delete the old model, just add a new one.
      */
-    static public function updateLuceneRecord(Doctrine_Record $model, $bDelete = true)
+    static public function updateLuceneRecord(Doctrine_Record $model, $bDelete = true, $factor = false)
     {
       $options = $model->getTable()->getTemplate('Luceneable')->getOptions();
       if ($bDelete)
@@ -73,6 +73,12 @@ class LuceneRecord {
         self::deleteLuceneRecord($model);
       }
       $index = LuceneHandler::getLuceneIndex();
+      
+      if (!$factor)
+        $factor = sfConfig::get('sf_lucene_merge_factor', 10);
+      
+      $index->setMergeFactor(10);
+      
       // store job primary key to identify it in the search results
 
       // See of ModelName->updateLucene() exists and returns a valid Zend_Search_Lucene_Document

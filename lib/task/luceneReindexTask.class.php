@@ -36,7 +36,6 @@ EOF;
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
     sfContext::createInstance($this->configuration);
-
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
     
@@ -53,13 +52,17 @@ EOF;
     } else {
         $models = $arguments['model'];
     }
+    
+    $index = LuceneHandler::getLuceneIndex();
+    $this->log('MergeFactor: '. $index->getMergeFactor());
 
     $timer = new sfTimer('timer');
     foreach ($models as $model)
     {
         $modeltimer = new sfTimer('Model');
         $this->log('Updating model: '. $model);
-        LuceneRecord::updateLuceneTable($model);
+        LuceneRecord::updateLuceneTable($model, true, 10);
+        $this->log('MergeFactor: '. $index->getMergeFactor());
         $this->log('Updating ' . $model . ' took ' . round($modeltimer->getElapsedTime(),2) . ' seconds');
     }
     // add your code here
