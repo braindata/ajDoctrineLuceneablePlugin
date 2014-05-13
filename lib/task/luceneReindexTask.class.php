@@ -35,10 +35,10 @@ EOF;
   {
     // initialize the database connection
     $databaseManager = new sfDatabaseManager($this->configuration);
-    //$connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
-
     sfContext::createInstance($this->configuration);
+    $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
 
+    
 
     if ($options['reset'] == true)
     {

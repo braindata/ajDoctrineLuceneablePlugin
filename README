@@ -268,7 +268,7 @@ Tasks
 =====
 This plugin provides a task to (re)index your models, when data has been modified in the database by other means that doctrine.
 
-lucene:reindex
+
 --------------
 **usage**
 <pre>
