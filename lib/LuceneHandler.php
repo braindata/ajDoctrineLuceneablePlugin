@@ -22,12 +22,9 @@ class LuceneHandler {
       
       Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8());
       Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('utf-8');
-<<<<<<< HEAD
-      Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8_CaseInsensitive());
-=======
+
       Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8Num_CaseInsensitive());
-      
->>>>>>> d2cdcbcca3946554b8e9d27908a4ffbc91e24670
+
       
       if (file_exists($index = self::getLuceneIndexFile()))
       {
