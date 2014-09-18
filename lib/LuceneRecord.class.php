@@ -132,5 +132,23 @@ class LuceneRecord {
       // finally, add the document to the index.
       $index->addDocument($doc);
     }
+
+  public static function getLuceneData(Doctrine_Record $model)
+  {
+    $stack = array();
+    foreach($model as $key => $value) {
+      if($model->getTable()->getTypeOf($key) == 'string'){
+        $stack[] = $value;
+      }
+    }
+
+    try {
+      $stack[] = BaseTable::getTranslationsForLucene(get_class($model), $model->getId());
+    } catch(Exception $e) {
+      $stack[] = '';
+    }
+
+    return implode(' ', $stack);
+  }
 }
 ?>

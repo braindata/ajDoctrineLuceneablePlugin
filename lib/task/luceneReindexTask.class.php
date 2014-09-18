@@ -11,6 +11,7 @@ class luceneReindexTask extends sfBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('reset', null, sfCommandOption::PARAMETER_OPTIONAL, 'Completely recreate the search folder (usually faster)', true),
+      new sfCommandOption('model-config', null, sfCommandOption::PARAMETER_OPTIONAL, 'Configuration variable for models', 'sf_lucene_models'),
       new sfCommandOption('application', null, sfCommandOption::PARAMETER_OPTIONAL, 'The application name', true),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
@@ -45,10 +46,9 @@ EOF;
         $this->log('Removing index and creating a new index..');
         LuceneHandler::recreateIndex();
     }
-    
-    if (sizeof($arguments['model']) == 0)
-    {
-        $models = sfConfig::get('sf_lucene_models',array());
+
+    if (sizeof($arguments['model']) == 0) {
+        $models = sfConfig::get($options['model-config'],array());
     } else {
         $models = $arguments['model'];
     }
