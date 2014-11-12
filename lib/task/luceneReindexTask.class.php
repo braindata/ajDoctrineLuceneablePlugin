@@ -38,7 +38,7 @@ EOF;
     $databaseManager = new sfDatabaseManager($this->configuration);
     sfContext::createInstance($this->configuration);
     $connection = $databaseManager->getDatabase($options['connection'] ? $options['connection'] : null)->getConnection();
-
+    sfConfig::set('sf_lucene_enable_indexing', true);
     
 
     if ($options['reset'] == true)
@@ -81,5 +81,14 @@ EOF;
       $loadDbOptions[] = '--application=' . $options['application'];
     }
     $ret = $loadDb->run(array(), $loadDbOptions);
+
+    # Set CHMOD 0777 for fontend access to the new lucene-index
+    $searchDir = sfConfig::get('sf_lucene_data_dir');
+    $dirs = sfFinder::type('directory')->in($searchDir);
+
+    $this->log('Set CHMOD 0777 for ' . $searchDir);
+
+    $fileManager = new sfFilesystem();
+    @$fileManager->chmod($dirs, 0777);
   }
 }

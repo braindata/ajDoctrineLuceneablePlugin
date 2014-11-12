@@ -14,13 +14,16 @@ class LuceneRecord {
      */
     static public function updateLuceneTable($sTable)
     {
-        $oTable = Doctrine::getTable($sTable);
-        $aRecords = $oTable->findAll();
-
-        self::deleteLuceneTable($sTable);
-        foreach ($aRecords as $oRecord)
+        if(sfConfig::get('sf_lucene_enable_indexing', true))
         {
-            self::updateLuceneRecord($oRecord,false);
+            $oTable = Doctrine::getTable($sTable);
+            $aRecords = $oTable->findAll();
+
+            self::deleteLuceneTable($sTable);
+            foreach ($aRecords as $oRecord)
+            {
+              self::updateLuceneRecord($oRecord,false);
+            }
         }
     }
 
@@ -67,6 +70,10 @@ class LuceneRecord {
      */
     static public function updateLuceneRecord(Doctrine_Record $model, $bDelete = true, $factor = false)
     {
+      if(! sfConfig::get('sf_lucene_enable_indexing', true)) {
+        return false;
+      }
+
       $options = $model->getTable()->getTemplate('Luceneable')->getOptions();
       if ($bDelete)
       {
