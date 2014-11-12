@@ -15,7 +15,7 @@ all:
   # For the reindex task (lucene:reindex)                                     #
   # Which models to automaticly reindex                                       #
   #############################################################################
-  #models: ['News','Member','Project','Event','Content','Organisation']
+  # models: ['News','Member','Project','Event','Content','Organisation']
 
   #############################################################################
   # A verion of zend lucene has been packaged with this plugin                #
@@ -31,7 +31,7 @@ all:
   # Switch for enable or disable the indexing.                                #
   # The task lucene:reindex fores this option to true                         #
   #############################################################################
-  enable_indexing: true
+  # enable_indexing: true
 
 ###################################################
 # Use a seperate index for the test environment   #
