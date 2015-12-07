@@ -12,6 +12,11 @@ class LuceneableListener extends Doctrine_Record_Listener
 		$this->_options = $options;
 	}
 
+	public function postSave(Doctrine_Event $event)
+	{
+		LuceneRecord::updateLuceneRecord($event->getInvoker());
+	}
+
 	public function postDelete(Doctrine_Event $event)
 	{
 		LuceneRecord::deleteLuceneRecord($event->getInvoker());
