@@ -16,7 +16,7 @@ class LuceneRecord {
     {
         if(sfConfig::get('sf_lucene_enable_indexing', true))
         {
-            $oTable = Doctrine::getTable($sTable);
+            $oTable = Doctrine_Core::getTable($sTable);
             $aRecords = $oTable->findAll();
 
             self::deleteLuceneTable($sTable);

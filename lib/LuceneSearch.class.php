@@ -132,7 +132,7 @@ class LuceneSearch {
     }
 
 
-    public function getRecords($iLimit = 20, $hydration = Doctrine::HYDRATE_RECORD )
+    public function getRecords($iLimit = 20, $hydration = Doctrine_Core::HYDRATE_RECORD )
     {
           $this->getPks();
           $this->_results = array();
